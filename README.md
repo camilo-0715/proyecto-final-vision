@@ -44,3 +44,6 @@ EL siguiente paso será sencillamente guardar este color en una variable y filtr
 
 
 con todo el coódigo hecho solo quedaba ponerlo todo junto. para esto utilice variables globales las cual se modificaban en el nodo 2d y dependiendo de su valor se ejecutaba en un código o el otro. para prevenir lecturas de valores erroneos, protegi todos los accesos a estas variables en ambos nodo por mutex para hacer el codigo completamente thread-safe.
+
+En el siguiente video se puede ver una demostración de la práctica terminada:
+https://youtu.be/SNkhgf6l7CY
