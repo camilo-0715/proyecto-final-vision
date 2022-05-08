@@ -38,6 +38,7 @@ la idea general era reconocer un objeto con yolo y filtrarlo en el pointcloud in
 Esta fue sin duda la parte más difícil de toda la practica primero cuando yolo detectaba el objecto que nos interesaba que en mi caso serían botellas nos quedabamos con las coordenadas de su bounding box, una vez tenemos estas coordenadas buscabamos el color predominante del area que encerraban. Para esto paso la imagen a hsv donde el color solo esta definido por la componente h y luego meto todas los valores h del  area encerrada por el bounding box en un vector el cual posteriormete ordenaré y con un algoritmo facilitado por stack overflow encontraré el número que más se repita.Este será nuestro hue predominante y por lo tanto el color predominante de la imagen.
 
 EL siguiente paso será sencillamente guardar este color en una variable y filtrar todo en el pointcloud lo cual no sea este color, de esta manera como vemos en la imagen de ejemplo filtramos dos botellas a pesar de que tienen colore distintos.
+
 ![Captura de pantalla de 2022-05-08 15-35-11](https://user-images.githubusercontent.com/78978326/167298815-dd0be893-2dec-449f-b792-4863ba218fb6.png)![Captura de pantalla de 2022-05-08 15-35-56](https://user-images.githubusercontent.com/78978326/167298822-6e491da2-a2f4-4d11-9438-f2685487caa2.png)
 
 
