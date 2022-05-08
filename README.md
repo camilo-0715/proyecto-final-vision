@@ -9,3 +9,4 @@ como para la parte 3D: filtros de color azul para pointcloud, identificación de
 sin embargo, no todo podía ser reciclado (que no soy skone) y para proyectar los centros 3D en 2D hubo que ponerse manos a la obra
 aún así fue bastante sencillo, basto con obtener las coordenadas 3d de los centros mediante el pointcloud y multiplicandolas por las matrices de proyección correectas obteníamos sus coordenadas 2D, que como se puede ver en la imagén son bastante parecidos a los centros obtenidos mediante los métodos 2D.
 
+![Captura de pantalla de 2022-05-08 14-30-02](https://user-images.githubusercontent.com/78978326/167296212-c2661f81-222d-4309-a455-9acd185f51f6.png)
