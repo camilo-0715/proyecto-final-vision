@@ -1,7 +1,6 @@
 # proyecto-final-vision
 proyecto final vision
 
-
 # Detección de pelota en 2D y 3D
 Esta parte fue bastane sencilla ya que practicamente todo el código fue reciclado de practicas anteriores, tanto para la parte 2D: las lineas de distancia en el suelo, la identificación de las pelotas mediante circulos de Hough, el filtro de color azul etc. 
 como para la parte 3D: filtros de color azul para pointcloud, identificación de circulos mediante ramsac etc.
@@ -33,13 +32,15 @@ Finalmente con estas coordenadas iremos de nuevo al pointcloud origanl y filtrar
 # Extra
 
 Para finalizar la práctica faltaba añadir la funcionalidad extra. tras discutir con el profesor varias ideas me quede finalmente con la siguiente:
-la idea general era reconocer un objeto con yolo y filtrarlo en el pointcloud independientemente de su color o forma mientras el yolo lo detectara como un tipo de objeto concreto. Por ejemplo si el yolo encontraba una botella sin importar su color on forma la filtramos en el pointcloud.
+la idea general era reconocer un objeto con yolo y filtrarlo en el pointcloud independientemente de su color o forma mientras seimpre y cuando el yolo lo detectara como un tipo de objeto concreto y este tuviera un color base predominante ya que utilizaría un filtro de color para la tarea. Por ejemplo si el yolo encontraba una botella sin importar su color on forma la filtramos en el pointcloud mientras esta se entera o la gran mayoria de un color.
 
-Esta fue sin duda la parte más difícil de toda la practica primero cuando yolo detectaba el objecto que nos interesaba que en mi caso serían botellas nos quedabamos con las coordenadas de su bounding box, una vez tenemos estas coordenadas buscabamos el color predominante del area que encerraban. Para esto paso la imagen a hsv donde el color solo esta definido por la componente h y luego meto todas los valores h del  area encerrada por el bounding box en un vector el cual posteriormete ordenaré y con un algoritmo facilitado por stack overflow encontraré el número que más se repita.Este será nuestro hue predominante y por lo tanto el color predominante de la imagen.
+Esta fue sin duda la parte más difícil de toda la practica.
+Para empezar necesitaba botellas de colores que filtrar por lo que descargue algunos modelos sdf de botellas de internet y los añadi a los modelos de gazebo.
+Una vez hecho esto podíamos empezar a programar. Lo primero cuando yolo detectaba el objecto que nos interesaba nos quedabamos con las coordenadas de su bounding box, una vez tenemos estas coordenadas buscabamos el color predominante del area que encerraban. Para esto paso la imagen a hsv donde el color solo esta definido por la componente h (esto facilita la comparacion de colores frente a rgb ) y luego meto todas los valores h del  area encerrada por el bounding box en un vector el cual posteriormete ordenaré y con un algoritmo facilitado por buenas personas de  stack overflow encontraré el número que más se repita dentro del vector. Este será nuestro hue predominante y por lo tanto el color predominante de la imagen.
 
 EL siguiente paso será sencillamente guardar este color en una variable y filtrar todo en el pointcloud lo cual no sea este color, de esta manera como vemos en la imagen de ejemplo filtramos dos botellas a pesar de que tienen colore distintos.
 
 ![Captura de pantalla de 2022-05-08 15-35-11](https://user-images.githubusercontent.com/78978326/167298815-dd0be893-2dec-449f-b792-4863ba218fb6.png)![Captura de pantalla de 2022-05-08 15-35-56](https://user-images.githubusercontent.com/78978326/167298822-6e491da2-a2f4-4d11-9438-f2685487caa2.png)
 
 
-
+con todo el coódigo hecho solo quedaba ponerlo todo junto. para esto utilice variables globales las cual se modificaban en el nodo 2d y dependiendo de su valor se ejecutaba en un código o el otro. para prevenir lecturas de valores erroneos, protegi todos los accesos a estas variables en ambos nodo por mutex para hacer el codigo completamente thread-safe.
