@@ -17,6 +17,7 @@ aún así fue bastante sencillo, basto con obtener las coordenadas 3d de los cen
 En esta parte lo primero fue configurar yolo, lo cúal resulto muy fácil una vez comprendido el código de ejemplo que nos ha sido facilitado, simplemete tuve que sustituir la imagen de la que con la que se trabajaba y en vez de cargar una del sistema, utilizar la imagen obtenida de la camára del robot.
 
 Con eso resuelto obtenemos el resultado que se ve a continuación:
+
 ![Captura de pantalla de 2022-05-08 14-55-43](https://user-images.githubusercontent.com/78978326/167297157-6ed308c8-d9c8-4c84-bf83-9db71a9b6ed3.png)
 
 una vez acabado con yolo empezamos con lo bueno...
@@ -26,5 +27,6 @@ Lo primero fue separar la mesa de las demas cosas por lo que usar mediante un fi
 Pero esta mesa tambien tiene grosor el cúal no queremos tener en cuenta así que nuevamente recorremos el pointcloud y nos quedamos con con coordenada y más pequeña. De esta manera hemmos obtenido unas coordenadas -x +x y -y en las que estará todo lo que haya encima de la mesa, sin embargo no buscamos ninguna coordenda +y ya que un obejeto que este en la mesa podría tener cualquier altura y no podemos fijar un baremo superior a partir del cúal despreciar objectos.
 
 Finalmente con estas coordenadas iremos de nuevo al pointcloud origanl y filtraremos todo lo que no esta dentro de estas coordenas y por otro ladon con un filtro de color hsv quitaremos la pared de fondo, obteniendo el resultado de la imagen en el que filtramos todos los objectos arriba de la mesa:
+
 ![Captura de pantalla de 2022-05-08 15-16-17](https://user-images.githubusercontent.com/78978326/167297991-b94644f2-245c-4bd8-a885-c89b70c2eed4.png)
 
