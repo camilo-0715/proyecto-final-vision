@@ -23,10 +23,22 @@ Con eso resuelto obtenemos el resultado que se ve a continuación:
 una vez acabado con yolo empezamos con lo bueno...
 
 Filtrar los objetos encima de la mesa. mi idea para dar una solución a este problema se basaba en usar todo lo aprendido en la asignatura hasta ahora.
-Lo primero fue separar la mesa de las demas cosas por lo que usar mediante un filtro de color hsv aplicado al pointcloud como hicimos con las pelotas era sin duda la mejor opción. Una vez tenemos la mesa filtrada vamos a localizar sus esquinas ya que todo lo que este encima de esta tendrá que estar si o si entre ellas, para ello recorremos el pointcloud y nos quedamos con la menor y mayor de las coordenadas x.
-Pero esta mesa tambien tiene grosor el cúal no queremos tener en cuenta así que nuevamente recorremos el pointcloud y nos quedamos con con coordenada y más pequeña. De esta manera hemmos obtenido unas coordenadas -x +x y -y en las que estará todo lo que haya encima de la mesa, sin embargo no buscamos ninguna coordenda +y ya que un obejeto que este en la mesa podría tener cualquier altura y no podemos fijar un baremo superior a partir del cúal despreciar objectos.
+Lo primero fue separar la mesa de las demas cosas por lo que usar un filtro de color hsv aplicado al pointcloud como hicimos con las pelotas era sin duda la mejor opción. Una vez tenemos la mesa filtrada vamos a localizar sus esquinas ya que todo lo que este encima de esta tendrá que estar si o si entre ellas, para ello recorremos el pointcloud y nos quedamos con la menor y mayor de las coordenadas x.
+Pero esta mesa tambien tiene grosor el cúal no queremos tener en cuenta así que nuevamente recorremos el pointcloud y nos quedamos con con coordenada y más pequeña. De esta manera hemmos obtenido unas coordenadas -x +x y -y en las que estará todo lo que haya encima de la mesa, sin embargo no buscamos ninguna coordenda +y ya que un obejeto que este en la mesa podría tener cualquier altura y no podemos fijar un baremo superior a partir del cúal despreciar objetos.
 
-Finalmente con estas coordenadas iremos de nuevo al pointcloud origanl y filtraremos todo lo que no esta dentro de estas coordenas y por otro ladon con un filtro de color hsv quitaremos la pared de fondo, obteniendo el resultado de la imagen en el que filtramos todos los objectos arriba de la mesa:
+Finalmente con estas coordenadas iremos de nuevo al pointcloud origanl y filtraremos todo lo que no esta dentro de estas coordenas mientras por otro ladon con un filtro de color hsv quitaremos la pared de fondo, obteniendo el resultado de la imagen en el que filtramos todos los objectos arriba de la mesa:
 
 ![Captura de pantalla de 2022-05-08 15-16-17](https://user-images.githubusercontent.com/78978326/167297991-b94644f2-245c-4bd8-a885-c89b70c2eed4.png)
+
+# Extra
+
+Para finalizar la práctica faltaba añadir la funcionalidad extra. tras discutir con el profesor varias ideas me quede finalmente con la siguiente:
+la idea general era reconocer un objeto con yolo y filtrarlo en el pointcloud independientemente de su color o forma mientras el yolo lo detectara como un tipo de objeto concreto. Por ejemplo si el yolo encontraba una botella sin importar su color on forma la filtramos en el pointcloud.
+
+Esta fue sin duda la parte más difícil de toda la practica primero cuando yolo detectaba el objecto que nos interesaba que en mi caso serían botellas nos quedabamos con las coordenadas de su bounding box, una vez tenemos estas coordenadas buscabamos el color predominante del area que encerraban. Para esto paso la imagen a hsv donde el color solo esta definido por la componente h y luego meto todas los valores h del  area encerrada por el bounding box en un vector el cual posteriormete ordenaré y con un algoritmo facilitado por stack overflow encontraré el número que más se repita.Este será nuestro hue predominante y por lo tanto el color predominante de la imagen.
+
+EL siguiente paso será sencillamente guardar este color en una variable y filtrar todo en el pointcloud lo cual no sea este color, de esta manera como vemos en la imagen de ejemplo filtramos dos botellas a pesar de que tienen colore distintos.
+![Captura de pantalla de 2022-05-08 15-35-11](https://user-images.githubusercontent.com/78978326/167298815-dd0be893-2dec-449f-b792-4863ba218fb6.png)![Captura de pantalla de 2022-05-08 15-35-56](https://user-images.githubusercontent.com/78978326/167298822-6e491da2-a2f4-4d11-9438-f2685487caa2.png)
+
+
 
